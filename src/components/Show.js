@@ -10,27 +10,30 @@ import {
 import {observer, inject} from 'mobx-react';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+// We divide the screen width by the pictures width in order to keep the aspect ratio
 const ratio = SCREEN_WIDTH / 1920;
 
 const Show = inject('store')(
-  observer(({show}) => (
-    <View style={styles.container}>
-      <TouchableHighlight
-        onPress={() => !show.selected && show.toggleSelected()}
-        onHideUnderlay={show.selected ? show.toggleSelected : null}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={{uri: show.img}}
-            accessibilityLabel={show.name}
-          />
+  observer(({show}) => {
+    return (
+      <View style={styles.container}>
+        <TouchableHighlight
+          onPress={() => !show.selected && show.toggleSelected()}
+          onHideUnderlay={show.selected ? show.toggleSelected : null}>
+          <View style={styles.imageContainer}>
+            <Image
+              style={styles.image}
+              source={{uri: show.img}}
+              accessibilityLabel={show.name}
+            />
+          </View>
+        </TouchableHighlight>
+        <View>
+          {show.selected && <Text style={styles.text}>{show.description}</Text>}
         </View>
-      </TouchableHighlight>
-      <View>
-        {show.selected && <Text style={styles.text}>{show.description}</Text>}
       </View>
-    </View>
-  )),
+    );
+  }),
 );
 
 const styles = StyleSheet.create({

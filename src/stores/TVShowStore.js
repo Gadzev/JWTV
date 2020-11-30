@@ -26,6 +26,12 @@ export const TVShowStore = types
     get allShows() {
       return values(self.shows);
     },
+    get showIsSelected() {
+      return values(self.shows).filter((show) => show.selected).length > 0;
+    },
+    get selectedShow() {
+      return values(self.shows).filter((show) => show.selected)[0];
+    },
   }))
   .actions((self) => {
     function updateShows(data) {

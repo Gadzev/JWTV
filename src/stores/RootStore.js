@@ -14,6 +14,12 @@ export const RootStore = types
     get shows() {
       return self.showStore.allShows;
     },
+    get showSelected() {
+      return self.showStore.showIsSelected;
+    },
+    get getSelectedShow() {
+      return self.showStore.selectedShow;
+    },
   }))
   .actions((self) => ({
     afterCreate() {
