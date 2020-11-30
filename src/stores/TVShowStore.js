@@ -11,7 +11,7 @@ const TVShow = types
   })
   .actions((self) => ({
     toggleSelected() {
-      self.selected = true;
+      self.selected = !self.selected;
     },
   }));
 

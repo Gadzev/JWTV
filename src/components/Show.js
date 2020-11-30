@@ -1,21 +1,37 @@
 import React from 'react';
-import {View, Image, Text, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableHighlight,
+} from 'react-native';
+import {observer, inject} from 'mobx-react';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const ratio = SCREEN_WIDTH / 1920;
 
-const Show = ({show}) => {
-  return (
+const Show = inject('store')(
+  observer(({show}) => (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{uri: show.img}} />
-      </View>
+      <TouchableHighlight
+        onPress={() => !show.selected && show.toggleSelected()}
+        onHideUnderlay={show.selected ? show.toggleSelected : null}>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={{uri: show.img}}
+            accessibilityLabel={show.name}
+          />
+        </View>
+      </TouchableHighlight>
       <View>
-        <Text style={styles.text}>{show.description}</Text>
+        {show.selected && <Text style={styles.text}>{show.description}</Text>}
       </View>
     </View>
-  );
-};
+  )),
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -41,5 +57,4 @@ const styles = StyleSheet.create({
     paddingRight: 50,
   },
 });
-
 export default Show;
