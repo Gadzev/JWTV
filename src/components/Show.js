@@ -1,17 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  Dimensions,
-  TouchableHighlight,
-} from 'react-native';
+import {View, Image, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {observer, inject} from 'mobx-react';
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-// We divide the screen width by the pictures width in order to keep the aspect ratio
-const ratio = SCREEN_WIDTH / 1920;
+import {imageScale, scale} from '../utils/scaling';
 
 const Show = inject('store')(
   observer(({show}) => {
@@ -43,7 +33,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    height: ratio * 800,
+    height: imageScale(800),
     padding: 30,
   },
   image: {
@@ -53,7 +43,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   text: {
-    fontSize: 22,
+    fontSize: scale(22),
     alignSelf: 'center',
     marginTop: 20,
     paddingLeft: 50,
